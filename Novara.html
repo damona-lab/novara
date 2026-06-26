@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novara Tech Solutions LTT</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Space+Grotesk:wght@400..700&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ---------- RESET & VARIABLES ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #020B18;
+      --navy-mid: #071628;
+      --navy-card: #0A1F35;
+      --blue-glow: #1A6FE8;
+      --blue-accent: #2B8BFF;
+      --blue-light: #4AA3FF;
+      --steel: #8BAABB;
+      --white: #F0F6FF;
+      --muted: #6B8599;
+      --border: rgba(42, 107, 200, 0.25);
+      --border-glow: rgba(42, 107, 200, 0.5);
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Center the main content container and key sections */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero {
+      align-items: center;
+      text-align: center;
+    }
+
+    .section-tag,
+    .section-title,
+    .section-sub {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ---------- UTILITY ---------- */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue-accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-tag::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--blue-accent);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--steel);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ---------- NAVIGATION (TABS) ---------- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 5%;
+      background: rgba(2, 11, 24, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #1A6FE8, #0A3A7A);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .nav-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--white);
+      letter-spacing: 0.3px;
+      line-height: 1.2;
+    }
+
+    .nav-name span {
+      color: var(--blue-accent);
+    }
+
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+
+    .nav-tabs li {
+      margin: 0;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--steel);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .tab-btn:hover {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-btn.active {
+      color: #fff;
+      background: var(--blue-glow);
+      box-shadow: 0 0 12px rgba(26, 111, 232, 0.3);
+    }
+
+    .burger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--white);
+      font-size: 24px;
+      padding: 4px;
+    }
+
+    /* ---------- PAGES (TAB CONTENT) ---------- */
+    .page {
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .page.active-page {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0.4;
+        transform: translateY(8px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- HERO (HOME) ---------- */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 5% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -15%;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(26, 111, 232, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(26, 111, 232, 0.12);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--blue-accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+      }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      max-width: 800px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 .accent {
+      color: var(--blue-accent);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--steel);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--blue-glow);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--blue-accent);
+      background: rgba(26, 111, 232, 0.06);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat .num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .hero-stat .num span {
+      color: var(--blue-accent);
+    }
+
+    .hero-stat .label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ---------- SECTIONS (shared) ---------- */
+    section {
+      padding: 4rem 5% 4rem;
+    }
+
+    /* ---------- SERVICES ---------- */
+    #services-page {
+      background: var(--navy-mid);
+    }
+
+    .services-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .service-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+
+    .service-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-2px);
+    }
+
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(26, 111, 232, 0.12);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+
+    .service-card p {
+      font-size: 13px;
+      color: var(--steel);
+      line-height: 1.5;
+    }
+
+    .service-tag {
+      display: inline-block;
+      margin-top: 0.75rem;
+      background: rgba(26, 111, 232, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 2px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--blue-light);
+      letter-spacing: 0.5px;
+    }
+
+    /* ---------- WHY US ---------- */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .pillar {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .pillar-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(26, 111, 232, 0.1);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 1.25rem;
+    }
+
+    .pillar h4 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+
+    .pillar p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ---------- FORMS ---------- */
+    .form-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .form-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 19px;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+
+    .form-card .form-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--steel);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+    }
+
+    .form-group input[type="date"] {
+      appearance: none;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: 0.7;
+      filter: invert(0.8);
+    }
+
+    .form-group input[type="date"]::-webkit-datetime-edit {
+      color: var(--white);
+    }
+
+    .form-group input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+      color: var(--white);
+    }
+
+    .form-group input[type="date"]::-webkit-datetime-edit-text {
+      color: var(--steel);
+      opacity: 0.8;
+    }
+
+    .form-group input[type="date"]::-webkit-datetime-edit-month-field,
+    .form-group input[type="date"]::-webkit-datetime-edit-day-field,
+    .form-group input[type="date"]::-webkit-datetime-edit-year-field {
+      color: var(--white);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue-accent);
+      background: rgba(26, 111, 232, 0.06);
+    }
+
+    .form-group select option {
+      background: var(--navy-card);
+      color: var(--white);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .btn-form {
+      width: 100%;
+      margin-top: 1rem;
+      background: var(--blue-glow);
+      color: #fff;
+      padding: 13px 24px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-form:hover {
+      background: var(--blue-accent);
+      transform: translateY(-1px);
+    }
+
+    .success-msg {
+      display: none;
+      margin-top: 1rem;
+      padding: 12px 16px;
+      border-radius: 8px;
+      background: rgba(29, 158, 117, 0.1);
+      border: 1px solid rgba(29, 158, 117, 0.3);
+      color: #5dcaa5;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ---------- CONSULTATION ---------- */
+    #consultation-page {
+      background: var(--navy-mid);
+    }
+
+    .forms-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .appt-wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .appt-info h4 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 0.75rem;
+      color: var(--white);
+    }
+
+    .appt-info p {
+      font-size: 14px;
+      color: var(--steel);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ---------- QUOTE ---------- */
+    #quote-page {
+      background: var(--navy-mid);
+    }
+
+    .quote-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .quote-feature {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .qf-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(26, 111, 232, 0.1);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .qf-text h5 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+
+    .qf-text p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .services-checklist {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 1.1rem;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 13px;
+      color: var(--steel);
+      user-select: none;
+    }
+
+    .check-item input[type="checkbox"] {
+      display: none;
+    }
+
+    .check-item .check-box {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      transition: all 0.2s;
+    }
+
+    .check-item.checked {
+      border-color: var(--blue-accent);
+      background: rgba(26, 111, 232, 0.08);
+      color: var(--white);
+    }
+
+    .check-item.checked .check-box {
+      background: var(--blue-glow);
+      border-color: var(--blue-glow);
+      color: #fff;
+    }
+
+    /* ---------- CONTACT ---------- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      background: rgba(26, 111, 232, 0.1);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .contact-item h5 {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 4px;
+    }
+
+    .contact-item p {
+      font-size: 15px;
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .contact-item span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .social-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 0.5rem;
+    }
+
+    .soc-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      text-decoration: none;
+      color: var(--steel);
+      transition: all 0.2s;
+    }
+
+    .soc-btn:hover {
+      border-color: var(--blue-accent);
+      color: var(--blue-light);
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--border);
+      padding: 3rem 5% 2rem;
+      text-align: center;
+    }
+
+    footer .foot-brand {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    footer .foot-brand span {
+      color: var(--blue-accent);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer .foot-tagline {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue-accent);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media(max-width: 900px) {
+
+      .forms-grid,
+      .contact-grid,
+      .appt-wrap,
+      .quote-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width: 768px) {
+      .burger {
+        display: block;
+      }
+
+      .nav-tabs {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: rgba(2, 11, 24, 0.98);
+        padding: 1rem 0;
+        gap: 0.5rem;
+        border-top: 1px solid var(--border);
+        margin-top: 0.5rem;
+      }
+
+      .nav-tabs.open {
+        display: flex;
+      }
+
+      .tab-btn {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        border-radius: 0;
+      }
+
+      .hero h1 {
+        font-size: 2.6rem;
+      }
+
+      .hero-stats {
+        gap: 1.5rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .services-checklist {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ====== NAV (TABS) ====== -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <div class="nav-logo">N</div>
+      <div class="nav-name">NOVARA<br /><span>Tech Solutions LTT</span></div>
+    </a>
+    <button class="burger" onclick="toggleMobileNav()" aria-label="Menu">☰</button>
+    <ul class="nav-tabs" id="navTabs">
+      <li><button class="tab-btn active" data-page="home">Home</button></li>
+      <li><button class="tab-btn" data-page="services">Services</button></li>
+      <li><button class="tab-btn" data-page="consultation">Consultation</button></li>
+      <li><button class="tab-btn" data-page="quote">Quote</button></li>
+      <li><button class="tab-btn" data-page="contact">Contact</button></li>
+    </ul>
+  </nav>
+
+  <!-- ====== PAGES ====== -->
+  <main>
+    <!-- HOME -->
+    <div class="page active-page" id="page-home">
+      <section class="hero">
+        <div class="hero-eyebrow">Nairobi, Kenya &bull; Est. Tech Partner</div>
+        <h1>Creative <span class="accent">Solutions.</span><br />Smarter Future.</h1>
+        <p class="hero-sub">Novara Tech Solutions LTT is your one-stop technology partner, delivering innovative,
+          reliable, and result-driven digital solutions that help your business stand out and grow.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn-primary" onclick="switchTab('quote')">Request a Quote ↗</a>
+          <a href="#" class="btn-outline" onclick="switchTab('consultation')">Free Consultation</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num">12<span>+</span></div>
+            <div class="label">Services Offered</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">100<span>%</span></div>
+            <div class="label">Client Focused</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">3</div>
+            <div class="label">Core Pillars</div>
+          </div>
+        </div>
+      </section>
+      <div class="divider"></div>
+      <!-- WHY US (on home) -->
+      <section id="why">
+        <div class="section-tag">Why Novara</div>
+        <h2 class="section-title">Innovate · Create · Elevate</h2>
+        <p class="section-sub">Every solution we deliver is built on four core commitments that put your business goals
+          first.</p>
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-icon">💡</div>
+            <h4>Innovative Ideas</h4>
+            <p>We stay ahead of technology trends to bring you fresh, forward-thinking solutions that give your business
+              a competitive edge.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🎯</div>
+            <h4>Result Driven</h4>
+            <p>Every project starts with your business outcomes in mind. We measure success by the real-world impact our
+              work creates for you.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">⭐</div>
+            <h4>Quality Service</h4>
+            <p>We hold ourselves to the highest standards of quality — from initial consultation through delivery and
+              post-launch support.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🤝</div>
+            <h4>Client Focused</h4>
+            <p>Your success is our success. We work closely with you at every stage, keeping communication open and your
+              priorities central.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="page" id="page-services">
+      <section id="services-page">
+        <div class="services-header">
+          <div class="section-tag">What We Do</div>
+          <h2 class="section-title">Our Services</h2>
+          <p class="section-sub">From brand identity to full-scale software development — we power your ideas with
+            technology across every digital touchpoint.</p>
+        </div>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">🎨</div>
+            <h3>Graphic Design</h3>
+            <p>Eye-catching visual designs tailored to your brand identity. From marketing materials to digital assets,
+              we create compelling graphics that communicate your message effectively and leave a lasting impression on
+              your audience.</p><span class="service-tag">Creative</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">✏️</div>
+            <h3>Logo Design</h3>
+            <p>A powerful logo is the cornerstone of your brand. We craft unique, scalable, and timeless logos that
+              encapsulate your brand's values, vision, and personality — making your business instantly recognizable
+              across all platforms.</p><span class="service-tag">Branding</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">📄</div>
+            <h3>Leaflet Design</h3>
+            <p>Professional and persuasive leaflets that drive customer engagement. We design print-ready and digital
+              leaflets structured to highlight your services, promotions, and calls to action in an organized, visually
+              appealing layout.</p><span class="service-tag">Print & Digital</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🏷️</div>
+            <h3>Label Design</h3>
+            <p>Standout product labels that attract attention on shelves and screens. We design labels that balance
+              regulatory compliance with striking aesthetics — ensuring your product packaging commands attention and
+              communicates brand quality.</p><span class="service-tag">Packaging</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🌐</div>
+            <h3>Web Design</h3>
+            <p>Beautiful, responsive websites built for performance and user experience. We design sites that load fast,
+              look stunning on every device, and are structured to guide visitors toward your business goals through
+              thoughtful UX principles.</p><span class="service-tag">Digital</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🎬</div>
+            <h3>Video Editing</h3>
+            <p>Professional video editing that brings your story to life. From promotional content to social media reels
+              and corporate presentations, we craft polished, engaging videos optimized for your target platform and
+              audience.</p><span class="service-tag">Multimedia</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">💻</div>
+            <h3>Software Development</h3>
+            <p>Custom software solutions built to solve your unique business challenges. We develop scalable, secure,
+              and maintainable applications using modern technologies and agile methodologies — from requirement
+              gathering to deployment and ongoing support.</p><span class="service-tag">Development</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🛒</div>
+            <h3>E-Commerce Web Development</h3>
+            <p>Feature-rich online stores that convert visitors into customers. We build end-to-end e-commerce platforms
+              with seamless payment integration, inventory management, and optimized checkout experiences to maximize
+              your online revenue.</p><span class="service-tag">Development</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">📱</div>
+            <h3>Mobile App Development</h3>
+            <p>Native and cross-platform mobile applications for iOS and Android. We design and build intuitive apps
+              that deliver exceptional user experiences, integrate with your backend systems, and keep your customers
+              engaged on the go.</p><span class="service-tag">Development</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">📊</div>
+            <h3>Data Collection</h3>
+            <p>Structured data collection systems and pipelines for your business operations. We build surveys, forms,
+              and automated collection tools that gather accurate, organized data from multiple sources — ready for
+              analysis and reporting.</p><span class="service-tag">Data</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">📈</div>
+            <h3>Data Analysis</h3>
+            <p>Turn raw data into actionable business intelligence. Our analysts apply statistical and machine learning
+              techniques to uncover patterns, trends, and insights in your data — empowering you to make smarter,
+              evidence-based decisions.</p><span class="service-tag">Data</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🗺️</div>
+            <h3>Data Visualization</h3>
+            <p>Compelling dashboards and visual reports that make complex data easy to understand. We transform your
+              datasets into interactive charts, graphs, and infographics that tell a clear story to stakeholders at
+              every level of your organization.</p><span class="service-tag">Data</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CONSULTATION -->
+    <div class="page" id="page-consultation">
+      <section id="consultation-page">
+        <div class="section-tag">Talk to Us</div>
+        <h2 class="section-title">Free Consultation</h2>
+        <p class="section-sub">Not sure where to start? Tell us about your project and one of our experts will reach out
+          within 24 hours with tailored advice — at no cost.</p>
+        <div class="forms-grid">
+          <!-- Consultation Form -->
+          <div class="form-card">
+            <h3>💬 Book a Free Consultation</h3>
+            <p class="form-desc">Fill in your details and we will get back to you within 24 hours with expert advice.
+            </p>
+            <div class="form-group"><label>Full Name</label><input type="text" placeholder="e.g. John Kamau"
+                id="cons-name" /></div>
+            <div class="form-row">
+              <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com"
+                  id="cons-email" /></div>
+              <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+254 7XX XXX XXX"
+                  id="cons-phone" /></div>
+            </div>
+            <div class="form-group">
+              <label>Service of Interest</label>
+              <select id="cons-service">
+                <option value="">Select a service…</option>
+                <option>Graphic Design</option>
+                <option>Logo Design</option>
+                <option>Leaflet Design</option>
+                <option>Label Design</option>
+                <option>Web Design</option>
+                <option>Video Editing</option>
+                <option>Software Development</option>
+                <option>E-Commerce Web Development</option>
+                <option>Mobile App Development</option>
+                <option>Data Collection</option>
+                <option>Data Analysis</option>
+                <option>Data Visualization</option>
+                <option>Multiple / Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Tell us about your project</label><textarea
+                placeholder="Describe your business goal or challenge…" id="cons-msg"></textarea></div>
+            <button class="btn-form" onclick="submitForm('consultation')">Send Consultation Request</button>
+<div class="success-msg" id="consultation-success">✅ Thank you! We'll be in touch within 24 hours.</div>
+</div>
+
+        <!-- Appointment Features -->
+        <div class="appt-wrap">
+          <div>
+            <div class="form-card">
+              <h3>📅 Appointment Details</h3>
+              <p class="form-desc">We'll confirm your booking via email or phone.</p>
+              <div class="form-row">
+                <div class="form-group"><label>First Name</label><input type="text" placeholder="e.g. Peter"
+                    id="appt-fname" /></div>
+                <div class="form-group"><label>Last Name</label><input type="text" placeholder="e.g. Mwangi"
+                    id="appt-lname" /></div>
+              </div>
+              <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com"
+                  id="appt-email" /></div>
+              <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+254 7XX XXX XXX"
+                  id="appt-phone" /></div>
+              <div class="form-group">
+                <label>Meeting Type</label>
+                <select id="appt-type">
+                  <option>Virtual Call (Zoom / Google Meet)</option>
+                  <option>In-Person Meeting – Nairobi Office</option>
+                  <option>Phone Call</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Purpose of Meeting</label>
+                <select id="appt-purpose">
+                  <option value="">Select…</option>
+                  <option>Project Discovery & Brief</option>
+                  <option>Technical Consultation</option>
+                  <option>Design Review</option>
+                  <option>Quotation Discussion</option>
+                  <option>Partnership / Collaboration</option>
+                  <option>Other</option>
+                </select>
+              </div>
+<div class="form-group">
+                <label>Preferred Date</label>
+                <input type="date" id="appt-date" style="cursor:pointer;" />
+              </div>
+              <div class="form-group"><label>Additional Notes</label><textarea
+                  placeholder="Anything we should know before the meeting…" id="appt-notes"></textarea></div>
+              <button class="btn-form" onclick="submitForm('appointment')">Confirm Appointment</button>
+              <div class="success-msg" id="appointment-success">✅ Appointment request sent! We'll confirm via email
+                shortly.</div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="margin-top:1.5rem; padding:1.25rem; background:rgba(26,111,232,0.08); border:1px solid var(--border); border-radius:10px;">
+              <p style="font-size:13px;color:var(--steel);line-height:1.6;">
+                📍 <strong style="color:var(--white)">Office Location:</strong> Nairobi, Kenya<br>
+                🕐 <strong style="color:var(--white)">Business Hours:</strong> Mon – Sat, 8:00 AM – 6:00 PM<br>
+                📞 <strong style="color:var(--white)">Direct Line:</strong> +254 115 086 525<br>
+                📧 <strong style="color:var(--white)">Email:</strong> info@novaratechltt.com
+              </p>
+            </div>
+          </div>
+        </div>
+       </section>
+    </div>
+
+    <!-- QUOTE -->
+    <div class="page" id="page-quote">
+      <section id="quote-page">
+        <div class="section-tag">Pricing</div>
+        <h2 class="section-title">Request a Quote</h2>
+        <p class="section-sub">Tell us what you need and we'll send you a detailed, no-obligation quotation within 24
+          hours.</p>
+        <div class="quote-wrap">
+          <div class="quote-info">
+            <div class="quote-feature">
+              <div class="qf-icon">⚡</div>
+              <div class="qf-text">
+                <h5>Fast Turnaround</h5>
+                <p>Receive your custom quote within 24 hours of submission — no waiting, no hassle.</p>
+              </div>
+            </div>
+            <div class="quote-feature">
+              <div class="qf-icon">💰</div>
+              <div class="qf-text">
+                <h5>Transparent Pricing</h5>
+                <p>Clear, itemized quotes with no hidden fees. You always know exactly what you're paying for.</p>
+              </div>
+            </div>
+            <div class="quote-feature">
+              <div class="qf-icon">🔒</div>
+              <div class="qf-text">
+                <h5>No Obligation</h5>
+                <p>Receiving a quote doesn't commit you to anything. Explore your options completely risk-free.</p>
+              </div>
+            </div>
+            <div class="quote-feature">
+              <div class="qf-icon">🌍</div>
+              <div class="qf-text">
+                <h5>Serving All of Kenya</h5>
+                <p>We work with clients across Nairobi and beyond — remotely and in-person.</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-card">
+            <h3>📋 Order / Quote Request</h3>
+            <p class="form-desc">Select services and share your requirements to receive a tailored quote.</p>
+            <div class="form-row">
+              <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name" id="q-name" />
+              </div>
+              <div class="form-group"><label>Company / Business</label><input type="text"
+                  placeholder="Company name (optional)" id="q-company" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com"
+                  id="q-email" /></div>
+              <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+254 7XX XXX XXX"
+                  id="q-phone" /></div>
+            </div>
+            <div class="form-group">
+              <label>Select Services Required</label>
+              <div class="services-checklist" id="services-checklist">
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Graphic Design
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Logo Design
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Leaflet Design
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Label Design
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Web Design
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Video Editing
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Software Dev
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>E-Commerce
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Mobile App
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Data Collection
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Data Analysis
+                </div>
+                <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" />
+                  <div class="check-box"></div>Data Visualization
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Estimated Budget (KES)</label>
+              <select id="q-budget">
+                <option value="">Select budget range…</option>
+                <option>Under KES 10,000</option>
+                <option>KES 10,000 – 30,000</option>
+                <option>KES 30,000 – 80,000</option>
+                <option>KES 80,000 – 200,000</option>
+                <option>KES 200,000+</option>
+                <option>Flexible / Open to discussion</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Preferred Deadline</label><input type="date" id="q-deadline" /></div>
+            <div class="form-group"><label>Project Description</label><textarea style="min-height:110px;"
+                placeholder="Describe your project, goals, and any specific requirements…" id="q-desc"></textarea></div>
+            <div class="form-group">
+              <label>How did you hear about us?</label>
+              <select id="q-source">
+                <option value="">Select…</option>
+                <option>Google Search</option>
+                <option>Social Media</option>
+                <option>Referral / Word of Mouth</option>
+                <option>Flyer / Leaflet</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <button class="btn-form" onclick="submitForm('quote')">Submit Quote Request</button>
+            <div class="success-msg" id="quote-success">✅ Quote request received! Expect our detailed proposal within 24
+              hours.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="page" id="page-contact">
+      <section id="contact-page">
+        <div class="section-tag">Reach Us</div>
+        <h2 class="section-title">Get in Touch</h2>
+        <p class="section-sub">We're always ready to help. Reach out through any of the channels below.</p>
+        <div class="contact-grid">
+          <div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <h5>Location</h5>
+                <p>Nairobi, Kenya</p><span>Serving clients across Kenya and beyond</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <h5>Call Us</h5>
+                <p>+254 115 086 525</p><span>Mon – Sat, 8:00 AM – 6:00 PM</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div>
+                <h5>Email Us</h5>
+                <p>info@novaratechltt.com</p><span>We respond within 24 hours</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🌐</div>
+              <div>
+                <h5>Website</h5>
+                <p>www.novaratechltt.com</p><span>Visit us online for more</span>
+              </div>
+            </div>
+            <div>
+              <p style="font-size:13px;color:var(--muted);margin-bottom:0.75rem;">Follow us</p>
+              <div class="social-row">
+                <a href="#" class="soc-btn" title="Facebook">f</a>
+                <a href="#" class="soc-btn" title="Instagram">📷</a>
+                <a href="#" class="soc-btn" title="LinkedIn">in</a>
+                <a href="#" class="soc-btn" title="Twitter / X">𝕏</a>
+              </div>
+            </div>
+          </div>
+          <div class="form-card">
+            <h3>📬 Quick Message</h3>
+            <p class="form-desc">Prefer to type? Send us a quick note and we'll get back to you.</p>
+            <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" id="qm-name" /></div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com"
+                id="qm-email" /></div>
+            <div class="form-group"><label>Message</label><textarea style="min-height:120px;"
+                placeholder="Your message…" id="qm-msg"></textarea></div>
+            <button class="btn-form" onclick="submitForm('quick')">Send Message</button>
+            <div class="success-msg" id="quick-success">✅ Message sent! We'll be in touch soon.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer>
+    <div class="foot-brand">NOVARA <span>Tech Solutions LTT</span></div>
+    <div class="foot-tagline">Innovate · Create · Elevate</div>
+    <p style="margin-bottom:0.5rem;">One Stop Solution For Your Business Growth</p>
+    <p>© 2025 Novara Tech Solutions LTT. All rights reserved. | Nairobi, Kenya</p>
+  </footer>
+
+  <!-- ====== JAVASCRIPT ====== -->
+  <script>
+    // ---------- TAB SWITCHING ----------
+    function switchTab(pageId) {
+      // Update buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.page === pageId);
+      });
+      // Update pages
+      document.querySelectorAll('.page').forEach(p => {
+        p.classList.toggle('active-page', p.id === 'page-' + pageId);
+      });
+      // Close mobile nav
+      document.getElementById('navTabs').classList.remove('open');
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        switchTab(this.dataset.page);
+      });
+    });
+
+    // Mobile nav toggle
+    function toggleMobileNav() {
+      document.getElementById('navTabs').classList.toggle('open');
+    }
+
+    // ---------- FORM SUBMISSION (simulated) ----------
+    function submitForm(id) {
+      const el = document.getElementById(id + '-success');
+      if (el) {
+        el.style.display = 'block';
+        setTimeout(() => { el.style.display = 'none'; }, 5000);
+      }
+    }
+
+// ---------- CHECKBOX TOGGLE (quote) ----------
+     function toggleCheck(el) {
+       el.classList.toggle('checked');
+       const box = el.querySelector('.check-box');
+       box.textContent = el.classList.contains('checked') ? '✓' : '';
+     }
+
+     // ---------- DATE PICKER (appointment) ----------
+     function initDatePicker() {
+       const dateInput = document.getElementById('appt-date');
+       const today = new Date();
+       const maxDate = new Date();
+       maxDate.setMonth(maxDate.getMonth() + 2);
+
+       dateInput.min = today.toISOString().split('T')[0];
+       dateInput.max = maxDate.toISOString().split('T')[0];
+
+       // Only allow weekdays (Mon-Sat)
+       dateInput.addEventListener('input', function() {
+         const selected = new Date(this.value);
+         const day = selected.getDay();
+         if (day === 0) { // Sunday
+           this.value = '';
+         }
+       });
+     }
+
+     // Initialize on load
+     document.addEventListener('DOMContentLoaded', initDatePicker);
+  </script>
+</body>
+
+</html>
