@@ -196,14 +196,15 @@
       .nav-tabs {
         position: absolute;
         top: var(--header-height);
-        left: 0;
         right: 0;
+        width: 40%;
         background: var(--surface);
         flex-direction: column;
         padding: 1rem 0;
-        gap: 4px;
+        gap: 2px;
         border-bottom: 1px solid var(--border);
         display: none;
+        border-left: 1px solid var(--border);
       }
       .nav-tabs.open {
         display: flex;
@@ -576,33 +577,176 @@
       border-color: var(--accent);
     }
 
-    /* ---------- GALLERY / BRANDING ---------- */
-    .gallery-grid {
+/* ---------- GALLERY / BRANDING ---------- */
+    .branding-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: 1fr;
       gap: 20px;
       margin-top: 1.5rem;
     }
-    .gallery-item {
+    .branding-main {
+      position: relative;
+      cursor: pointer;
       border-radius: var(--radius);
       overflow: hidden;
       border: 1px solid var(--border);
       background: var(--surface);
-      transition: 0.2s;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .gallery-item:hover {
-      border-color: var(--accent);
-    }
-    .gallery-img {
+    .branding-main img {
       width: 100%;
       height: auto;
-      aspect-ratio: 3/2;
+      max-height: 220px;
       object-fit: cover;
       display: block;
     }
-    @media (max-width: 500px) {
-      .gallery-grid {
-        grid-template-columns: 1fr;
+    @media (min-width: 769px) {
+      .branding-main {
+        width: 80%;
+      }
+    }
+    .branding-main {
+      position: relative;
+      cursor: pointer;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+.branding-main img {
+      width: 100%;
+      height: auto;
+      max-height: 280px;
+      object-fit: cover;
+      display: block;
+      text-align: center;
+    }
+    .branding-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(11, 14, 20, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .branding-overlay:hover {
+      background: rgba(11, 14, 20, 0.5);
+    }
+    .branding-thumbs {
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .branding-thumbs img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .branding-thumbs img:hover {
+      border-color: var(--accent);
+    }
+    .branding-thumbs.show {
+      display: grid;
+    }
+    @media (max-width: 700px) {
+      .branding-main img {
+        max-height: 150px;
+      }
+      .branding-thumbs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    /* ---------- CAR WRAPPING GALLERY ---------- */
+    .car-wrapping-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 1.5rem;
+    }
+    .car-wrapping-main {
+      position: relative;
+      cursor: pointer;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .car-wrapping-main img {
+      width: 100%;
+      height: auto;
+      max-height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+    @media (min-width: 769px) {
+      .car-wrapping-main {
+        width: 80%;
+      }
+    }
+    .car-explore-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(11, 14, 20, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .car-explore-overlay:hover {
+      background: rgba(11, 14, 20, 0.5);
+    }
+    .car-wrapping-thumbs {
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .car-wrapping-thumbs img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .car-wrapping-thumbs img:hover {
+      border-color: var(--accent);
+    }
+    .car-wrapping-thumbs.show {
+      display: grid;
+    }
+    @media (max-width: 700px) {
+      .car-wrapping-thumbs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .car-wrapping-main img {
+        max-height: 150px;
       }
     }
 
@@ -753,7 +897,7 @@
   <!-- ====== NAV ====== -->
   <nav>
     <a href="#" class="nav-brand">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a2634' rx='12'/%3E%3Ctext x='50' y='58' font-family='monospace' font-size='32' font-weight='700' fill='%234b8cff' text-anchor='middle'%3ENT%3C/text%3E%3C/svg%3E" alt="Novara Logo" class="nav-logo" />
+      <img src="images/logo.jpeg" alt="Novara Logo" class="nav-logo" />
       <div class="nav-name">NOVARA<br /><span>Tech Solutions LTT</span></div>
       <div class="nav-name-short">NOVARA</div>
     </a>
@@ -833,11 +977,31 @@
         <div class="section-tag">Our Work</div>
         <h2 class="section-title">Branding</h2>
         <p class="section-sub">Showcasing our creative branding solutions for clients across Kenya.</p>
-        <div class="gallery-grid">
-          <div class="gallery-item"><img src="images/1.jpeg" alt="Branding Project 1" class="gallery-img" /></div>
-          <div class="gallery-item"><img src="images/2.jpeg" alt="Branding Project 2" class="gallery-img" /></div>
-          <div class="gallery-item"><img src="images/3.jpeg" alt="Branding Project 3" class="gallery-img" /></div>
-          <div class="gallery-item"><img src="images/4.jpeg" alt="Branding Project 4" class="gallery-img" /></div>
+        <div class="branding-grid">
+          <div class="branding-main" onclick="toggleBrandingImages()">
+            <img src="images/1.jpeg" alt="Branding Project 1" />
+            <div class="branding-overlay">Explore More ↗</div>
+          </div>
+          <div class="branding-thumbs" id="brandingImages">
+            <img src="images/2.jpeg" alt="Branding Project 2" />
+            <img src="images/3.jpeg" alt="Branding Project 3" />
+            <img src="images/4.jpeg" alt="Branding Project 4" />
+          </div>
+        </div>
+
+        <h2 class="section-title">Car Wrapping</h2>
+        <p class="section-sub">Professional car wrapping services that transform vehicles into moving billboards.</p>
+        <div class="car-wrapping-grid">
+          <div class="car-wrapping-main" onclick="toggleCarImages()">
+            <img src="images/car1.jpeg" alt="Car Wrapping Project 1" />
+            <div class="car-explore-overlay">Explore More ↗</div>
+          </div>
+          <div class="car-wrapping-thumbs" id="carImages">
+            <img src="images/car2.jpeg" alt="Car Wrapping Project 2" />
+            <img src="images/car3.jpeg" alt="Car Wrapping Project 3" />
+            <img src="images/car4.jpeg" alt="Car Wrapping Project 4" />
+            <img src="images/car5.jpeg" alt="Car Wrapping Project 5" />
+          </div>
         </div>
       </section>
     </div>
@@ -1030,6 +1194,16 @@
     function toggleWhatsApp() {
       const panel = document.getElementById('whatsapp-panel');
       panel.classList.toggle('open');
+    }
+
+    function toggleBrandingImages() {
+      const thumbs = document.getElementById('brandingImages');
+      thumbs.classList.toggle('show');
+    }
+
+    function toggleCarImages() {
+      const thumbs = document.getElementById('carImages');
+      thumbs.classList.toggle('show');
     }
 
     function sendWhatsApp() {
